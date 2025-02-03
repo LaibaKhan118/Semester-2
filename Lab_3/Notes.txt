@@ -290,4 +290,100 @@ public:
 | **Polymorphism** | Same function name, different implementations |
 | **Encapsulation** | Restricting direct access to data |
 
-Would you like a more in-depth explanation of any section? 🚀
+**Getters** and **Setters** are methods that provide controlled access to the private or protected data members of a class. These methods are used to **encapsulate** the data and provide a way to interact with the class’s internal state while ensuring that the class's fields are modified or accessed safely and in a controlled manner.
+
+### Getters
+A **getter** (also known as an **accessor** method) is used to retrieve or "get" the value of a private data member from outside the class. It allows read-only access to the private variables.
+
+- **Purpose**: The getter's primary role is to allow other code to access the value of a private member.
+- **Naming convention**: Getters are typically named using the pattern `getVariableName()`, where `VariableName` is the name of the variable you're accessing.
+
+### Setters
+A **setter** (also known as a **mutator** method) is used to set or modify the value of a private data member. It allows controlled modification of the private variables.
+
+- **Purpose**: The setter allows for controlled or validated modification of an object’s state. It can enforce constraints, validate input, or trigger other behaviors when the value is modified.
+- **Naming convention**: Setters are typically named using the pattern `setVariableName()`, where `VariableName` is the name of the variable being set.
+
+### Example:
+Here's a simple class with both getter and setter methods:
+
+```cpp
+#include <iostream>
+using namespace std;
+
+class Person {
+private:
+    string name;
+    int age;
+
+public:
+    // Getter for 'name'
+    string getName() const {
+        return name;
+    }
+
+    // Setter for 'name'
+    void setName(const string& newName) {
+        name = newName;
+    }
+
+    // Getter for 'age'
+    int getAge() const {
+        return age;
+    }
+
+    // Setter for 'age'
+    void setAge(int newAge) {
+        if (newAge >= 0) {  // Validation
+            age = newAge;
+        } else {
+            cout << "Invalid age!" << endl;
+        }
+    }
+};
+
+int main() {
+    Person person;
+    
+    // Using setter to assign values
+    person.setName("John");
+    person.setAge(30);
+
+    // Using getter to retrieve values
+    cout << "Name: " << person.getName() << endl;
+    cout << "Age: " << person.getAge() << endl;
+
+    // Trying to set an invalid age
+    person.setAge(-5);  // This will display "Invalid age!"
+    
+    return 0;
+}
+```
+
+### Breakdown:
+1. **Private Data Members**: 
+   - The variables `name` and `age` are private. This ensures they cannot be accessed directly from outside the class.
+   
+2. **Getter Methods**: 
+   - `getName()` returns the `name` of the person.
+   - `getAge()` returns the `age` of the person.
+   
+3. **Setter Methods**: 
+   - `setName()` allows setting the `name` attribute.
+   - `setAge()` allows setting the `age` attribute. It includes a simple validation check to ensure the age is non-negative. If the age is invalid (e.g., negative), it doesn't change the value and prints an error message.
+
+### Why Use Getters and Setters?
+1. **Encapsulation**: By making data members private and providing getters and setters, you ensure that no one can directly manipulate the internal state of an object. You can control what happens when someone gets or sets a value.
+   
+2. **Data Validation**: Setters allow you to include checks or validation (like the age check in the example) before updating the value, ensuring that the object’s state remains valid.
+
+3. **Flexibility**: You can modify the internal representation of data without changing how the class is used externally. For example, you could change how you store the age, but as long as the setter and getter are unchanged, the external code using the class doesn’t need to be updated.
+
+### Example Output:
+```
+Name: John
+Age: 30
+Invalid age!
+```
+
+By using getters and setters, you create a clean and controlled interface to your class, which helps maintain data integrity and flexibility in your code.
