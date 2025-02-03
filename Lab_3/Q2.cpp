@@ -13,7 +13,7 @@ total cash and then exit.*/
 
 #include <iostream>
 #include <conio.h>
-#include <cstdio>
+#include <iomanip>
 using namespace std;
 
 class TollBooth
@@ -35,8 +35,7 @@ public:
     void display() const
     {
         cout << "Total Number of Cars: " << totalCars << endl;
-        printf("Total money collected: $%.2f", moneyCollected); // Using printf to display proper cash format (with 2 decimal places)
-        // cout << "Total money collected: " << moneyCollected << endl;
+        cout << "Total Money Collected: $" << fixed << setprecision(2) << moneyCollected << endl;
     }
 };
 
