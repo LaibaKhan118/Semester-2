@@ -1,0 +1,293 @@
+Use references (&) for function parameters when you don’t need to modify what the reference points to.
+
+Use pointers (*) when you need dynamic memory (new/delete) or need to change what an object points to.
+
+### **Classes and Objects in C++**
+
+In C++, **classes** and **objects** are fundamental concepts of **Object-Oriented Programming (OOP)** that help in creating modular, reusable, and maintainable code.
+
+---
+
+## **1. What is a Class?**
+A **class** is a user-defined blueprint or prototype from which objects are created. It defines **data members** (attributes) and **member functions** (methods) that operate on those data members.
+
+### **Syntax of a Class**
+```cpp
+class ClassName {
+public:
+    // Data members (variables)
+    int variable1;
+    string variable2;
+
+    // Member functions (methods)
+    void display() {
+        cout << "Variable1: " << variable1 << endl;
+        cout << "Variable2: " << variable2 << endl;
+    }
+};
+```
+
+---
+
+## **2. What is an Object?**
+An **object** is an instance of a class. When an object is created, memory is allocated for its attributes, and it can use the class’s member functions.
+
+### **Creating Objects**
+```cpp
+int main() {
+    ClassName obj1; // Creating an object of ClassName
+    obj1.variable1 = 10;
+    obj1.variable2 = "Hello";
+    obj1.display();
+    return 0;
+}
+```
+
+---
+
+## **3. Access Specifiers**
+C++ provides three access specifiers to control access to class members:
+1. **public** → Accessible from anywhere.
+2. **private** → Accessible only within the class.
+3. **protected** → Accessible within the class and derived classes.
+
+```cpp
+class Example {
+private:
+    int privateVar; // Not accessible outside class
+
+public:
+    int publicVar;  // Accessible anywhere
+
+protected:
+    int protectedVar; // Accessible within class and derived classes
+};
+```
+
+---
+
+## **4. Member Functions**
+Member functions are functions defined inside a class to manipulate class data.
+
+### **Inside Class Definition**
+```cpp
+class Car {
+public:
+    void show() {
+        cout << "This is a car!" << endl;
+    }
+};
+```
+
+### **Outside Class Definition**
+```cpp
+class Car {
+public:
+    void show();  // Function prototype
+};
+
+// Function definition outside class
+void Car::show() {
+    cout << "This is a car!" << endl;
+}
+```
+
+---
+
+## **5. Constructors and Destructors**
+### **Constructor**
+A **constructor** is a special function that is automatically called when an object is created. It initializes the object.
+
+**Types of Constructors:**
+1. **Default Constructor** (No parameters)
+2. **Parameterized Constructor** (Takes arguments)
+3. **Copy Constructor** (Copies data from another object)
+
+```cpp
+class Car {
+public:
+    string brand;
+
+    // Constructor
+    Car(string b) {
+        brand = b;
+    }
+
+    void show() {
+        cout << "Brand: " << brand << endl;
+    }
+};
+
+int main() {
+    Car obj("Toyota");  // Calls the constructor
+    obj.show();
+    return 0;
+}
+```
+
+### **Destructor**
+A **destructor** is called automatically when an object goes out of scope. It is used to release resources.
+
+```cpp
+class Car {
+public:
+    ~Car() {
+        cout << "Destructor called!" << endl;
+    }
+};
+```
+
+---
+
+## **6. Static Members**
+### **Static Data Members**
+Static variables belong to the class, not to any specific object.
+
+```cpp
+class Test {
+public:
+    static int count;
+};
+
+// Initialize static variable
+int Test::count = 0;
+```
+
+### **Static Member Functions**
+Static functions can access only static data members.
+
+```cpp
+class Test {
+public:
+    static void show() {
+        cout << "Static Function Called!" << endl;
+    }
+};
+
+int main() {
+    Test::show();  // Calling without an object
+    return 0;
+}
+```
+
+---
+
+## **7. Friend Functions**
+A **friend function** can access private and protected members of a class.
+
+```cpp
+class Sample {
+private:
+    int x;
+
+public:
+    Sample(int a) {
+        x = a;
+    }
+    friend void show(Sample obj);
+};
+
+void show(Sample obj) {
+    cout << "Value of x: " << obj.x << endl;
+}
+```
+
+---
+
+## **8. Inheritance**
+Inheritance allows a class to inherit properties from another class.
+
+```cpp
+class Parent {
+public:
+    void display() {
+        cout << "Parent Class" << endl;
+    }
+};
+
+class Child : public Parent {
+public:
+    void show() {
+        cout << "Child Class" << endl;
+    }
+};
+
+int main() {
+    Child obj;
+    obj.display(); // Inherited function
+    obj.show();
+    return 0;
+}
+```
+
+---
+
+## **9. Polymorphism (Function Overloading & Overriding)**
+### **Function Overloading**
+```cpp
+class Math {
+public:
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    double add(double a, double b) {
+        return a + b;
+    }
+};
+```
+
+### **Function Overriding**
+```cpp
+class Parent {
+public:
+    virtual void show() {
+        cout << "Parent Function" << endl;
+    }
+};
+
+class Child : public Parent {
+public:
+    void show() override {
+        cout << "Child Function" << endl;
+    }
+};
+```
+
+---
+
+## **10. Encapsulation**
+Encapsulation restricts direct access to data and provides controlled access through functions.
+
+```cpp
+class Student {
+private:
+    int age;
+
+public:
+    void setAge(int a) {
+        age = a;
+    }
+
+    int getAge() {
+        return age;
+    }
+};
+```
+
+---
+
+### **Summary**
+| Concept           | Description |
+|-------------------|------------|
+| **Class**        | Blueprint for creating objects |
+| **Object**       | Instance of a class |
+| **Access Specifiers** | Controls access to class members |
+| **Constructors & Destructors** | Initialize and clean up objects |
+| **Static Members** | Belong to the class, not objects |
+| **Friend Functions** | Allow external functions to access private members |
+| **Inheritance**  | One class derives from another |
+| **Polymorphism** | Same function name, different implementations |
+| **Encapsulation** | Restricting direct access to data |
+
+Would you like a more in-depth explanation of any section? 🚀
