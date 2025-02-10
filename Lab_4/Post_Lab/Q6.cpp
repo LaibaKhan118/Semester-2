@@ -9,9 +9,6 @@ available balance.
 Your task is to implement a C++ program that fulfills these requirements.*/
 
 #include <iostream>
-using namespace std;
-
-#include <iostream>
 #include <string>
 using namespace std;
 
