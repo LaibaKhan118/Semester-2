@@ -18,9 +18,17 @@ private:
     int months;
     double monthlyReturn;
     double loan;
+    bool flag;
 
 public:
-    LoanHelper(float rate, double amo, int mon) : interestRate(rate), amount(amo), months(mon) {}
+    LoanHelper(float rate, double amo, int mon) : interestRate(rate), amount(amo), months(mon)
+    {
+        if (interestRate < 0 || interestRate > 0.5)
+        {
+            cout << "Rate must be between 0 - 0.5" << endl;
+            flag = false;
+        }
+    }
 
     void LoanRepayment()
     {
@@ -48,6 +56,10 @@ public:
     {
         return months;
     }
+    bool getFlag() const
+    {
+        return flag;
+    }
 
     void setAmount(double am)
     {
@@ -61,16 +73,12 @@ public:
 
 int main()
 {
-    float rate;
-    do
+    LoanHelper l1(0.4, 50000, 12);
+
+    if (l1.getFlag())
     {
-        cout << "Enter interest rate: ";
-        cin >> rate;
-    } while (rate < 0 || rate > 0.5);
-
-    LoanHelper l1(rate, 50000, 12);
-    l1.LoanRepayment();
-    cout << "You have to pay " << l1.getLoan() << " every month for " << l1.getMonths() << " months to repay your loan" << endl;
-
+        l1.LoanRepayment();
+        cout << "You have to pay " << l1.getLoan() << " every month for " << l1.getMonths() << " months to repay your loan" << endl;
+    }
     return 0;
 }
