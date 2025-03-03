@@ -37,15 +37,10 @@ public:
     {
         return sidelength;
     }
-
+    static float getAllArea();
     float getArea()
     {
         return area;
-    }
-
-    static float getAllArea()
-    {
-        return allarea;
     }
 
     void calculateArea()
@@ -54,17 +49,22 @@ public:
         allarea += area;
     }
 };
+
 float Square::allarea = 0.0;
+float Square::getAllArea()
+{
+    return allarea;
+}
 
 int main()
 {
     Square s1(10), s2(5.9), s3(30.5);
     s1.calculateArea();
-    cout << "\nArea of Square 1: " << s1.getArea() << "\nTotal Area: " << s1.getAllArea();
+    cout << "\nArea of Square 1: " << s1.getArea() << "\nTotal Area: " << Square::getAllArea();
     s2.calculateArea();
-    cout << "\nArea of Square 2: " << s2.getArea() << "\nTotal Area: " << s2.getAllArea();
+    cout << "\nArea of Square 2: " << s2.getArea() << "\nTotal Area: " << Square::getAllArea();
     s3.calculateArea();
-    cout << "\nArea of Square 3: " << s3.getArea() << "\nTotal Area: " << s3.getAllArea();
+    cout << "\nArea of Square 3: " << s3.getArea() << "\nTotal Area: " << Square::getAllArea();
 
     return 0;
 }
