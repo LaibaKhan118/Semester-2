@@ -1,5 +1,5 @@
 # Hello World
-This is a repository for all of my college projects and assignments.\
+This is a repository for all of my college projects and assignments for the second semester.\
 **[Roll No# 24K-0644]**
 
 # Brief Introduction about myself
