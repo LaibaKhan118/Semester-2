@@ -136,3 +136,12 @@ int main() {
     
     return 0;
 }
+
+// Mistakes In The Previous Code
+/*
+    1. Encapsulation: All data members were public. Had to do so to avoid the errors I was getting.
+    2. Arrays: I should've used DMA for arrays. I didn't because the concept was not clear yet. 
+    3. viewMentorDetails() Logic: That was a mistake; it should display m.name instead of mentorAssigned.
+    4. Invalid Array Bounds in Loop: That was a typo.
+    5. Returning from registerForMentorship() Immediately: I should have checked all expertise before returning.
+*/
