@@ -3,26 +3,30 @@ using namespace std;
 
 class User
 {
-public:
+private:
     int age;
     string licenseType;
     string contactInfo;
     int userId;
 
-    User()
-    {
-        age = 0;
-        licenseType = "";
-        contactInfo = "";
-        userId = 0;
-    }
+public:
+    User() : age(0), licenseType(""), contactInfo(""), userId(0) {}
+
+    int getAge() const { return age; }
+    string getLicenseType() const { return licenseType; }
+    string getContactInfo() const { return contactInfo; }
+    int getUserId() const { return userId; }
+
+    void setAge(int newAge) { age = newAge; }
+    void setLicenseType(const string &newLicenseType) { licenseType = newLicenseType; }
+    void setContactInfo(const string &newContactInfo) { contactInfo = newContactInfo; }
+    void setUserId(int newUserId) { userId = newUserId; }
 
     void registerUser()
     {
         cout << "Enter your age: ";
         cin >> age;
-        cout << "Enter your license type: " << endl;
-        cout << "(Learner, Intermediate, Full): ";
+        cout << "Enter your license type (Learner, Intermediate, Full): ";
         cin >> licenseType;
         cout << "Enter your contact information: ";
         cin >> contactInfo;
@@ -35,7 +39,7 @@ public:
     {
         int choice;
         cout << "What do you want to update?\n";
-        cout << "1. Age\n2. license type\n3. contact info\nEnter choice: ";
+        cout << "1. Age\n2. License type\n3. Contact info\nEnter choice: ";
         cin >> choice;
         switch (choice)
         {
@@ -57,7 +61,7 @@ public:
         }
     }
 
-    void displayDetails()
+    void displayDetails() const
     {
         cout << "----INFORMATION OF USER: " << userId << "----" << endl;
         cout << "Age: " << age << endl;
@@ -68,76 +72,94 @@ public:
 
 class Vehicle
 {
-public:
+private:
     string model;
     int pricePerDay;
     string eligibility;
 
-    Vehicle()
+public:
+    Vehicle() : model(""), pricePerDay(0), eligibility("") {}
+
+    Vehicle(const string &m, int p, const string &e)
+        : model(m), pricePerDay(p), eligibility(e) {}
+
+    string getModel() const { return model; }
+    int getPricePerDay() const { return pricePerDay; }
+    string getEligibility() const { return eligibility; }
+
+    void setModel(const string &newModel) { model = newModel; }
+    void setPricePerDay(int newPrice) { pricePerDay = newPrice; }
+    void setEligibility(const string &newEligibility) { eligibility = newEligibility; }
+};
+
+class RentalSystem
+{
+private:
+    Vehicle *cars[5]; // Fixed-size array of pointers to Vehicle objects
+    int carCount;
+
+public:
+    RentalSystem() : carCount(0)
     {
-        model = "";
-        pricePerDay = 0;
-        eligibility = "";
+        cars[carCount++] = new Vehicle("Toyota Corolla", 55, "Full");
+        cars[carCount++] = new Vehicle("Honda City", 50, "Intermediate");
+        cars[carCount++] = new Vehicle("Volkswagen Polo", 35, "Learner");
+        cars[carCount++] = new Vehicle("Ford Mustang", 85, "Full");
+        cars[carCount++] = new Vehicle("Suzuki Alto", 40, "Intermediate");
     }
 
-    Vehicle(string m, int p, string e)
+    ~RentalSystem()
     {
-        model = m;
-        pricePerDay = p;
-        eligibility = e;
+        for (int i = 0; i < carCount; i++)
+        {
+            delete cars[i];
+        }
     }
 
-    Vehicle *cars[5];
-    void addCar()
-    {
-        cars[0] = new Vehicle("Toyota Corolla", 55, "Full");
-        cars[1] = new Vehicle("Honda City", 50, "Intermediate");
-        cars[2] = new Vehicle("Volkswagen Polo", 35, "Learner");
-        cars[3] = new Vehicle("Ford Mustang", 85, "Full");
-        cars[4] = new Vehicle("Suzuki Alto", 40, "Intermediate");
-    }
-
-    void availableCars()
+    void displayAvailableCars() const
     {
         cout << "\n----Available Cars----\n"
              << endl;
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < carCount; i++)
         {
-            cout << "Model: " << cars[i]->model << endl;
-            cout << "Rental price per day (dollars): " << cars[i]->pricePerDay << endl;
-            cout << "Eligibility: " << cars[i]->eligibility << endl
+            cout << "Car " << i + 1 << ":\n";
+            cout << "Model: " << cars[i]->getModel() << endl;
+            cout << "Rental price per day (dollars): " << cars[i]->getPricePerDay() << endl;
+            cout << "Eligibility: " << cars[i]->getEligibility() << endl
                  << endl;
         }
     }
 
-    void rentCar(User &u)
+    void rentCar(const User &user)
     {
-        int a;
-        cout << "Which car do you want to rent? (Enter number 1-5): ";
-        cin >> a;
+        int choice;
+        cout << "Which car do you want to rent? (Enter number 1-" << carCount << "): ";
+        cin >> choice;
 
-        if (a < 1 || a > 5)
+        if (choice < 1 || choice > carCount)
         {
             cout << "Invalid selection.\n";
             return;
         }
 
-        Vehicle *selected = cars[a - 1];
-        if (u.age < 18)
+        Vehicle *selectedCar = cars[choice - 1];
+
+        if (user.getAge() < 18)
         {
             cout << "You are not eligible to rent a car.\n";
             return;
         }
-        if (u.licenseType == selected->eligibility ||
-            (u.licenseType == "Full" && selected->eligibility != "Full") ||
-            (u.licenseType == "Intermediate" && selected->eligibility == "Learner"))
+
+        if (user.getLicenseType() == selectedCar->getEligibility() ||
+            (user.getLicenseType() == "Full" && selectedCar->getEligibility() != "Full") ||
+            (user.getLicenseType() == "Intermediate" && selectedCar->getEligibility() == "Learner"))
         {
-            cout << "You have rented " << selected->model << " for $"
-                 << selected->pricePerDay << " per day.\n";
+            cout << "You have rented " << selectedCar->getModel() << " for $"
+                 << selectedCar->getPricePerDay() << " per day.\n";
         }
         else
         {
-            cout << "You are not eligible to rent " << selected->model << ".\n";
+            cout << "You are not eligible to rent " << selectedCar->getModel() << ".\n";
         }
     }
 };
@@ -151,7 +173,7 @@ int main()
          << endl;
 
     u1.registerUser();
-    cout << "Do you want to update any details(1: Yes, 0: No): ";
+    cout << "Do you want to update any details (1: Yes, 0: No): ";
     cin >> a;
 
     if (a == 1)
@@ -160,10 +182,17 @@ int main()
     }
     u1.displayDetails();
 
-    Vehicle v;
-    v.addCar();
-    v.availableCars();
-    v.rentCar(u1);
+    RentalSystem rentalSystem;
+    rentalSystem.displayAvailableCars();
+    rentalSystem.rentCar(u1);
 
     return 0;
 }
+/*
+Mistakes In the Previous Code:
+1. No Encapsulation
+2. It didn't have a proper class to handle the cars list
+3. Inflexible Array
+4. No input Validation
+5. Incomplete Eligibility Logic
+*/
