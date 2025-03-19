@@ -49,6 +49,7 @@ public:
         cout << "Account Number: " << accountNumber << endl;
         cout << "Balance: " << balance << endl;
     }
+    virtual ~Account() {}
 };
 
 class SavingsAccount : public Account
