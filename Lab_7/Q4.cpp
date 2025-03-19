@@ -32,6 +32,7 @@ public:
     }
 
     string getName() const { return name; }
+    virtual ~Person() {}
 };
 
 class Student : public Person
