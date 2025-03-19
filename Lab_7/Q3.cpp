@@ -27,6 +27,7 @@ public:
         cout << fixed << setprecision(2);
         cout << "Amount: " << symbol << amount << " (" << code << ")\n";
     }
+    virtual ~Currency() {}
 };
 
 class Dollar : public Currency
