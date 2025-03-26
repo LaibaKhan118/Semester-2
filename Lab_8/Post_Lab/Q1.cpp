@@ -62,7 +62,7 @@ public:
     SavingsAccount(int a, double b) : BankAccount(a, b) {}
     void calculateInterest() override
     {
-        balance *= 1.05;
+        balance += (balance * 0.05);
         cout << "Interest applied 5%. New Balance: " << balance << endl;
     }
     void withdraw(double amount) override
