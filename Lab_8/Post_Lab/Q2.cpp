@@ -236,7 +236,6 @@ public:
         return result;
     }
 
-    // Overload / operator to split cart total among multiple users
     double operator/(int users) const
     {
         if (users <= 0)
@@ -257,61 +256,50 @@ public:
                  << items[i]->calculatePrice() << " after tax\n";
         }
         cout << "TOTAL: $" << calculateTotal() << "\n\n";
-        // Why
     }
 };
 
 int main()
 {
-    // Create a shopping cart for a regular user
     ShoppingCart cart1(0);
     cart1.addProduct(new Electronics("E001", 1000));
     cart1.addProduct(new Clothing("C001", 500));
     cart1.addProduct(new Electronics("E002", 2000));
     cart1.displayCart();
 
-    // Apply a percentage discount
     cart1.applyDiscount("PERCENTAGE", 10);
     cout << "After applying 10% discount:\n";
     cart1.displayCart();
 
-    // Apply a fixed discount
     cart1.applyDiscount("FIXED", 100);
     cout << "After applying fixed discount of $100:\n";
     cart1.displayCart();
 
-    // Apply BOGO discount
     cart1.applyDiscount("BOGO");
     cout << "After applying BOGO discount:\n";
     cart1.displayCart();
 
-    // Remove a product by ID
     cart1.removeProduct("C001");
     cout << "After removing product C001:\n";
     cart1.displayCart();
 
-    // Create another shopping cart for a premium user
     ShoppingCart cart2(1);
     cart2.addProduct(new Electronics("E003", 1500));
     cart2.addProduct(new Clothing("C002", 800));
     cart2.displayCart();
 
-    // Combine two carts using the + operator
     ShoppingCart combinedCart = cart1 + cart2;
     cout << "Combined cart:\n";
     combinedCart.displayCart();
 
-    // Remove a product from the combined cart using the - operator
     ShoppingCart updatedCart = combinedCart - "E002";
     cout << "Updated cart after removing E002:\n";
     updatedCart.displayCart();
 
-    // Apply a discount to the combined cart using the * operator
     ShoppingCart discountedCart = combinedCart * 20; // 20% discount
     cout << "Discounted cart after applying 20% discount:\n";
     discountedCart.displayCart();
 
-    // Split the total cost among 3 users using the / operator
     double splitCost = combinedCart / 3;
     cout << "Split cost among 3 users: $" << splitCost << endl;
 
