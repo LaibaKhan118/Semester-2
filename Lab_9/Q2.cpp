@@ -43,6 +43,7 @@ public:
     virtual void turnOn() = 0;
     virtual void turnOff() = 0;
     virtual void getStatus() = 0;
+    virtual ~SmartDevice() {}
 };
 
 class LightBulb : public SmartDevice
