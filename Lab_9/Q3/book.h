@@ -12,21 +12,24 @@ o Member Functions:
 ▪ getTitle(), getAuthor(), getISBN(): Return book properties.
 */
 
-#ifndef BOOK
-#define BOOK
+#ifndef BOOK_H
+#define BOOK_H
+
+#include <string>
 
 class Book
 {
 protected:
-    string title;
-    string author;
-    string ISBN;
+    std::string title;
+    std::string author;
+    std::string ISBN;
 
 public:
-    Book(string t, string a, string i);
-    string getTitle() const;
-    string getAuthor() const;
-    string getISBN() const;
+    Book();
+    Book(const std::string &t, const std::string &a, const std::string &i);
+    std::string getTitle() const;
+    std::string getAuthor() const;
+    std::string getISBN() const;
 };
 
 #endif
