@@ -5,52 +5,52 @@ o Member Functions:
 ▪ addBook(), removeBook(), searchBook(): Manage the collection.
 */
 
-#include "Book.h"
 #include "Library.h"
-#include <iostream>
-using namespace std;
 
-Library::Library(int max) : maxBooks(max), bookCount(0) {
-            books = new Book*[maxBooks];
-        }
-
-void Library::addBook(const Book& book) {
-   if (bookCount < maxBooks) {
-        books[bookCount] = book;
-        bookCount++;
-        cout << "Book added successfully!" << endl;
-    }
-    else {
-        cout << "Cannot add book. Library is full!" << endl;
+Library::Library(int maxBooks)
+{
+    cap = maxBooks;
+    count = 0;
+    books = new Book[cap];
 }
 
-void Library::removeBook() {
-    int index;
-    cout << "Enter index of book to remove: ";
-    cin >> index;
-
-    if (index < 0 || index >= bookCount) {
-        cout << "Invalid index!" << endl;
-        return;
-    }
-
-    delete books[index];
-    for (int i = index; i < bookCount - 1; i++) {
-        books[i] = books[i + 1];
-    }
-    bookCount--;
+Library::~Library()
+{
+    delete[] books;
 }
 
-void Library::searchBook() {
-    string title;
-    cout << "Enter book title to search: ";
-    cin >> title;
-
-    for (int i = 0; i < bookCount; i++) {
-        if (books[i]->getTitle() == title) {
-            cout << "Book found: " << books[i]->getTitle() << ", " << books[i]->getAuthor() << ", " << books[i]->getISBN() << endl;
-            return;
-        }
+void Library::addBook(const Book &book)
+{
+    if (count < cap)
+    {
+        books[count++] = book;
     }
-    cout << "Book not found!" << endl;
+}
+
+void Library::removeBook(const std::string &isbn)
+{
+    for (int i = 0; i < count; i++)
+    {
+        if (books[i].getISBN() == isbn)
+        {
+            for (int j = i; j < count - 1; ++j)
+            {
+                books[j] = books[j + 1];
+            }
+        }
+        --count;
+        break;
+    }
+}
+
+Book *Library::searchBook(const std::string &isbn)
+{
+    for (int i = 0; i < count; i++)
+    {
+        if (books[i].getISBN() == isbn)
+        {
+            return &books[i];
+        }
+        return nullptr;
+    }
 }
