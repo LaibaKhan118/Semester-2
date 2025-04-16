@@ -5,24 +5,24 @@ o Member Functions:
 ▪ addBook(), removeBook(), searchBook(): Manage the collection.
 */
 
-#ifndef LIBRARY
-#define LIBRARY
+#ifndef LIBRARY_H
+#define LIBRARY_H
 
-#include <string>
 #include "Book.h"
 
 class Library
 {
-    Book **books;
-    int maxBooks;
-    int bookCount;
+protected:
+    Book *books;
+    int cap;
+    int count;
 
 public:
-    Library(int max);
-
+    Library(int maxBooks);
+    ~Library();
     void addBook(const Book &book);
-    void removeBook();
-    void searchBook();
+    void removeBook(const std::string &isbn);
+    Book *searchBook(const std::string &isbn);
 };
 
 #endif
