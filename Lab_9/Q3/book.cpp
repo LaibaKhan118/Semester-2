@@ -12,12 +12,11 @@ o Member Functions:
 ▪ getTitle(), getAuthor(), getISBN(): Return book properties.
 */
 
-#include "BOOK.h"
-#include <iostream>
+#include "Book.h"
 
-using namespace std;
+Book::Book() : title(""), author(""), ISBN("") {}
 
-Book::Book(string t, string a, string i) : title(t), author(a), ISBN(i) {}
-string Book::getTitle() const { return title; }
-string Book::getAuthor() const { return author; }
-string Book::getISBN() const { return ISBN; }
+Book::Book(const std::string &t, const std::string &a, const std::string &i) : title(t), author(a), ISBN(i) {}
+std::string Book::getTitle() const { return title; }
+std::string Book::getAuthor() const { return author; }
+std::string Book::getISBN() const { return ISBN; }
