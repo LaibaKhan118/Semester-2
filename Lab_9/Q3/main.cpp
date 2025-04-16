@@ -34,7 +34,7 @@ int main()
     cout << "Author: " << book1.getAuthor() << endl;
     cout << "ISBN  : " << book1.getISBN() << endl;
 
-    cout << "\nCreating a library, adding this book to the library, and searching for it using te search feature:" << endl;
+    cout << "\nCreating a library, adding this book to the library, and searching for it using the search feature:" << endl;
 
     Library library(10);
 
